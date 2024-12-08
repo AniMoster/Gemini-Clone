@@ -20,14 +20,16 @@ const Sidebar = () => {
         />
         <div className="new-chat">
           <img src={assets.plus_icon} alt="New Chat" />
-          {extended && <p>New Chat</p>}
+          {extended && <TypingText text="New Chat" />}
         </div>
         {extended && (
           <div className="recent">
-            <p className="recent-title">Recent</p>
+            <p className="recent-title">
+              {extended && <TypingText text="Recent" />}
+            </p>
             <div className="recent-entry">
               <img src={assets.message_icon} alt="Message" />
-              <p>What is React ...</p>
+              {extended && <TypingText text="What is React ..." />}
             </div>
           </div>
         )}
@@ -35,15 +37,15 @@ const Sidebar = () => {
       <div className="bottom">
         <div className="bottom-item recent-entry">
           <img src={assets.question_icon} alt="Help" />
-          {extended && <p>Help</p>}
+          {extended && <TypingText text="Help" />}
         </div>
         <div className="bottom-item recent-entry">
           <img src={assets.history_icon} alt="Activity" />
-          {extended && <p>Activity</p>}
+          {extended && <TypingText text="Activity" />}
         </div>
         <div className="bottom-item recent-entry">
           <img src={assets.setting_icon} alt="Settings" />
-          {extended && <p>Settings</p>}
+          {extended && <TypingText text="Settings" />}
         </div>
       </div>
     </div>
