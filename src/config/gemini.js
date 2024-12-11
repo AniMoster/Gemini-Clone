@@ -1,11 +1,6 @@
-import {
-  GoogleGenerativeAI,
-  HarmCategory,
-  HarmBlockThreshold,
-} from "@google/generative-ai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-console.log("API Key: ", apiKey);
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
@@ -21,14 +16,23 @@ const generationConfig = {
 };
 
 async function run(prompt) {
-  const chatSession = model.startChat({
-    generationConfig,
-    history: [
-    ],
-  });
+  try {
+    const chatSession = model.startChat({
+      generationConfig,
+      history: [],
+    });
 
-  const result = await chatSession.sendMessage(prompt);
-  console.log(result.response.text());
+    const result = await chatSession.sendMessage(prompt);
+
+    const responseText = await result.response.text();
+
+    console.log(responseText);
+
+    return responseText;
+  } catch (error) {
+    console.error("Error in generating response:", error);
+    return "An error occurred while processing the request.";
+  }
 }
 
 export default run;
