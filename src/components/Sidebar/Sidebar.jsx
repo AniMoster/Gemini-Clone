@@ -1,12 +1,24 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
 import { assets } from "../../assets/assets";
+import { Context } from "../../context/Context";
+import { useContext } from "react";
 
 const Sidebar = () => {
   const [extended, setExtended] = useState(false);
+  const { onSent, prevPrompt, setRecentPrompt } = useContext(Context);
+
+  const loadPrompt = async (prompt) => {
+    setRecentPrompt(prompt);
+    await onSent(prompt);
+  };
 
   const TypingText = ({ text }) => {
-    return <span className={extended ? "typing" : "removing"}>{text}</span>;
+    return (
+      <span className={extended ? "typing visible" : "typing hidden"}>
+        {text}
+      </span>
+    );
   };
 
   return (
@@ -27,10 +39,18 @@ const Sidebar = () => {
             <p className="recent-title">
               {extended && <TypingText text="Recent" />}
             </p>
-            <div className="recent-entry">
-              <img src={assets.message_icon} alt="Message" />
-              {extended && <TypingText text="What is React ..." />}
-            </div>
+            {prevPrompt.map((item, index) => {
+              return (
+                <div
+                  onClick={() => loadPrompt(item)}
+                  key={index}
+                  className="recent-entry"
+                >
+                  {extended && <img src={assets.message_icon} alt="Message" />}
+                  {extended && <TypingText text={`${item.slice(0, 18)} ...`} />}
+                </div>
+              );
+            })}
           </div>
         )}
       </div>

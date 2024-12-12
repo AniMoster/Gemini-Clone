@@ -11,7 +11,7 @@
   }
   
   .sidebar.extended {
-    width: 200px;
+    width: 250px;
     transform: translateX(0);
   }
   
@@ -95,31 +95,14 @@
   }
   
   .typing {
-    animation: typing 1s forwards;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
   }
   
-  .removing {
-    animation: removing 1s forwards;
+  .visible {
+    opacity: 1;
   }
   
-  @keyframes typing {
-    0% {
-      width: 0;
-      opacity: 0;
-    }
-    100% {
-      width: 100%;
-      opacity: 1;
-    }
-  }
-  
-  @keyframes removing {
-    0% {
-      width: 100%;
-      opacity: 1;
-    }
-    100% {
-      width: 0;
-      opacity: 0;
-    }
-  }  
+  .hidden {
+    opacity: 0;
+  } 
